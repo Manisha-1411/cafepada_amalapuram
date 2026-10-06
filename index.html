@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+    <!-- SEO -->
+    <title>Cafe Panda | Order Burgers, Pizza, Boba & More</title>
+    <meta name="description" content="Cafe Panda — Your favorite destination for delicious burgers, pizzas, boba cold coffees, milkshakes, momos, and desserts. Order now via WhatsApp!" />
+    <meta name="keywords" content="cafe panda, burgers, pizza, boba coffee, milkshakes, momos, food delivery, order online" />
+    <meta name="author" content="Cafe Panda" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Cafe Panda | Order Delicious Food" />
+    <meta property="og:description" content="Burgers, Pizza, Boba, Shakes & More — Order via WhatsApp!" />
+    <meta property="og:image" content="/panda-logo.jpg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://cafepanda.in" />
+
+    <!-- PWA -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#4ecca3" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="apple-touch-icon" href="/panda-logo.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/jpeg" href="/panda-logo.jpg" />
+
+    <!-- Preconnect to image sources -->
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Register service worker -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
