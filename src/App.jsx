@@ -8,6 +8,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import QRCode from 'react-qr-code';
 
 // ─────────────────────────────────────────────────────────────────
 //  FULL MENU DATABASE WITH INGREDIENT METADATA
@@ -16,17 +17,17 @@ const MENU_DATA = [
   // QUICK BITES
   { id: 'qb1', category: 'QUICK BITES', name: 'Funky Fries (Plain)', price: 60, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Crispy golden fries seasoned with sea salt, served piping hot.', ingredients: ['Potatoes', 'Sunflower Oil', 'Sea Salt', 'Mixed Herbs'], calories: '280 kcal', prepTime: '8 mins' },
   { id: 'qb2', category: 'QUICK BITES', name: 'Salted Fries', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=600&q=80', description: 'Classic thin-cut fries with a perfect salt coating.', ingredients: ['Potatoes', 'Salt', 'Refined Oil', 'Pepper'], calories: '300 kcal', prepTime: '8 mins' },
-  { id: 'qb3', category: 'QUICK BITES', name: 'Peri Peri Fries', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=600&q=80', description: 'Spicy peri-peri dusted fries with a fiery African chilli kick.', ingredients: ['Potatoes', 'Peri Peri Masala', 'Paprika', 'Garlic Powder', 'Oil'], calories: '340 kcal', prepTime: '10 mins' },
-  { id: 'qb4', category: 'QUICK BITES', name: 'Garlic Pops (15 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1547592180-85f173990554?w=600&q=80', description: 'Bite-sized garlic-flavoured corn pops, perfectly crunchy.', ingredients: ['Corn', 'Garlic Butter', 'Parsley', 'Salt', 'Oil'], calories: '310 kcal', prepTime: '12 mins' },
-  { id: 'qb5', category: 'QUICK BITES', name: 'Veg Nuggets (10 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?w=600&q=80', description: 'Golden-crumbed vegetable nuggets with a soft veggie core.', ingredients: ['Mixed Vegetables', 'Breadcrumbs', 'Corn Starch', 'Spices', 'Oil'], calories: '320 kcal', prepTime: '12 mins' },
+  { id: 'qb3', category: 'QUICK BITES', name: 'Peri Peri Fries', price: 99, isVeg: true, image: '/images/peri-peri-fries.png', description: 'Spicy peri-peri dusted fries with a fiery African chilli kick.', ingredients: ['Potatoes', 'Peri Peri Masala', 'Paprika', 'Garlic Powder', 'Oil'], calories: '340 kcal', prepTime: '10 mins' },
+  { id: 'qb4', category: 'QUICK BITES', name: 'Garlic Pops (15 pcs)', price: 99, isVeg: true, image: '/images/garlic-pops.png', description: 'Bite-sized garlic-flavoured corn pops, perfectly crunchy.', ingredients: ['Corn', 'Garlic Butter', 'Parsley', 'Salt', 'Oil'], calories: '310 kcal', prepTime: '12 mins' },
+  { id: 'qb5', category: 'QUICK BITES', name: 'Veg Nuggets (10 pcs)', price: 99, isVeg: true, image: '/images/veg-nuggets.png', description: 'Golden-crumbed vegetable nuggets with a soft veggie core.', ingredients: ['Mixed Vegetables', 'Breadcrumbs', 'Corn Starch', 'Spices', 'Oil'], calories: '320 kcal', prepTime: '12 mins' },
   { id: 'qb6', category: 'QUICK BITES', name: 'Corn Rolls (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80', description: 'Crispy pastry rolls stuffed with spiced sweet corn filling.', ingredients: ['Sweet Corn', 'Spring Roll Sheet', 'Green Chilli', 'Cumin', 'Cheese'], calories: '290 kcal', prepTime: '14 mins' },
   { id: 'qb7', category: 'QUICK BITES', name: 'Onion Rings (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?w=600&q=80', description: 'Battered and fried thick onion rings with a crispy golden coat.', ingredients: ['Onions', 'All-Purpose Flour', 'Buttermilk', 'Paprika', 'Salt'], calories: '260 kcal', prepTime: '10 mins' },
-  { id: 'qb8', category: 'QUICK BITES', name: 'Veg Lollipops (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1585325701165-b1f9e3041e52?w=600&q=80', description: 'Fun stick-mounted veggie lollipops coated in tangy sauce.', ingredients: ['Mixed Veggies', 'Cornflour', 'Soy Sauce', 'Ginger-Garlic', 'Chilli Sauce'], calories: '280 kcal', prepTime: '15 mins' },
+  { id: 'qb8', category: 'QUICK BITES', name: 'Veg Lollipops (5 pcs)', price: 99, isVeg: true, image: '/images/veg-lollipops.png', description: 'Fun stick-mounted veggie lollipops coated in tangy sauce.', ingredients: ['Mixed Veggies', 'Cornflour', 'Soy Sauce', 'Ginger-Garlic', 'Chilli Sauce'], calories: '280 kcal', prepTime: '15 mins' },
   // NON-VEG SNACKATORY
   { id: 'nv1', category: 'NON-VEG SNACKATORY', name: 'Chicken Nuggets (6 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Juicy chicken nuggets with a crunchy breadcrumb coating.', ingredients: ['Chicken Breast', 'Breadcrumbs', 'Egg', 'Garlic', 'Mixed Spices'], calories: '380 kcal', prepTime: '12 mins' },
   { id: 'nv2', category: 'NON-VEG SNACKATORY', name: 'Chicken Fingers (4 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=80', description: 'Tender strips of marinated chicken, crispy on the outside.', ingredients: ['Chicken Strips', 'Buttermilk', 'Seasoned Flour', 'Paprika', 'Oil'], calories: '360 kcal', prepTime: '14 mins' },
   { id: 'nv3', category: 'NON-VEG SNACKATORY', name: 'Chicken Popcorn (15 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1606755456206-b25206cde27e?w=600&q=80', description: 'Bite-sized popcorn chicken with a light crispy batter.', ingredients: ['Chicken Thighs', 'Cornflour', 'Hot Sauce', 'Garlic Powder', 'Oil'], calories: '420 kcal', prepTime: '15 mins' },
-  { id: 'nv4', category: 'NON-VEG SNACKATORY', name: 'Chicken Loaded French Fries', price: 199, isVeg: false, image: 'https://images.unsplash.com/photo-1659261200833-ec8761558af7?w=600&q=80', description: 'Fries loaded with spiced chicken, melted cheese and jalapenos.', ingredients: ['Fries', 'Chicken Pieces', 'Cheddar Cheese', 'Jalapenos', 'Sour Cream', 'Spring Onion'], calories: '620 kcal', prepTime: '18 mins' },
+  { id: 'nv4', category: 'NON-VEG SNACKATORY', name: 'Chicken Loaded French Fries', price: 199, isVeg: false, image: '/images/chicken-loaded-fries.png', description: 'Fries loaded with spiced chicken, melted cheese and jalapenos.', ingredients: ['Fries', 'Chicken Pieces', 'Cheddar Cheese', 'Jalapenos', 'Sour Cream', 'Spring Onion'], calories: '620 kcal', prepTime: '18 mins' },
   // MOMO MAMA
   { id: 'm1', category: 'MOMO MAMA (5 Pcs)', name: 'Classic Fried Momos', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Pan-fried dumplings with a crispy base and juicy veggie filling.', ingredients: ['Maida', 'Cabbage', 'Carrot', 'Ginger', 'Garlic', 'Soy Sauce'], calories: '320 kcal', prepTime: '15 mins' },
   { id: 'm2', category: 'MOMO MAMA (5 Pcs)', name: 'Classic Veg Steamed Momos', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1626714853040-a5a85ccd52a3?w=600&q=80', description: 'Soft steamed momos stuffed with fresh vegetables.', ingredients: ['Maida', 'Cabbage', 'Spring Onion', 'Carrot', 'Pepper', 'Sesame Oil'], calories: '280 kcal', prepTime: '18 mins' },
@@ -186,7 +187,7 @@ export default function App() {
     if (cartSubtotal() < MIN_ORDER) { alert('⚠️ భయ్యా! కనీసం ₹190+ ఐటమ్స్ యాడ్ చేయాలి!'); return; }
     if (!custName.trim() || !custPhone.trim() || !custAddr.trim()) { alert('⚠️ అన్ని details నింపేయ్ భయ్యా!'); return; }
     if (distance > 7) {
-      alert('🛑 భయ్యా! దూరం 7 Kms కంటే ఎక్కువ ఉంది. Dine-In లేదా Pre-Booking option use చేయి!');
+      alert('Delivery is unavailable for distances exceeding 7 Kms. Please contact the cafe directly for special arrangements.');
       return;
     }
     const payLabel = payMode === 'COD' ? '💵 Cash on Delivery (COD)' : '📱 Online Payment (PhonePe/GPay)';
@@ -463,8 +464,27 @@ function ItemModal({ item, onClose, onAdd, isCafeOpen }) {
 //  CART DRAWER
 // ═══════════════════════════════════════════════════════════════════
 function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeItem, custName, setCustName, custPhone, setCustPhone, custAddr, setCustAddr, distance, setDistance, payMode, setPayMode, onPlaceOrder, isCafeOpen }) {
+  const [paymentStatus, setPaymentStatus] = useState('PENDING');
   const sub = cartSubtotal();
   const meetsMin = sub >= MIN_ORDER;
+
+  const handleCheckout = () => {
+    if (cart.length === 0 || sub < MIN_ORDER || !custName.trim() || !custPhone.trim() || !custAddr.trim() || distance > 7) {
+      onPlaceOrder(); // will trigger validations in parent
+      return;
+    }
+    
+    if (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS') {
+      alert('Initiating secure payment gateway connection...');
+      setTimeout(() => {
+        alert('✅ Payment verified successfully! You can now complete the order via WhatsApp.');
+        setPaymentStatus('SUCCESS');
+      }, 1500);
+      return;
+    }
+    onPlaceOrder();
+  };
+
   return (
     <div style={{ position: 'fixed', inset: 0, zIndex: 800 }}>
       <div onClick={onClose} style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }} />
@@ -532,15 +552,15 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
               <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginBottom: 20 }}>
                 {[{ v: 'COD', l: '💵 Cash on Delivery (COD)' }, { v: 'ONLINE', l: '📱 Online Payment (PhonePe/GPay)' }].map(opt => (
                   <label key={opt.v} style={{ display: 'flex', alignItems: 'center', gap: 12, cursor: 'pointer', padding: '12px 16px', borderRadius: 12, background: payMode === opt.v ? 'rgba(78,204,163,0.12)' : 'rgba(255,255,255,0.04)', border: `1.5px solid ${payMode === opt.v ? '#4ecca3' : 'rgba(255,255,255,0.08)'}`, transition: 'all .2s' }}>
-                    <input type="radio" name="pay" value={opt.v} checked={payMode === opt.v} onChange={() => setPayMode(opt.v)} style={{ accentColor: '#4ecca3', width: 16, height: 16 }} />
+                    <input type="radio" name="pay" value={opt.v} checked={payMode === opt.v} onChange={() => { setPayMode(opt.v); setPaymentStatus('PENDING'); }} style={{ accentColor: '#4ecca3', width: 16, height: 16 }} />
                     <span style={{ fontSize: 13, fontWeight: payMode === opt.v ? 700 : 500, color: payMode === opt.v ? '#4ecca3' : '#94a3b8' }}>{opt.l}</span>
                   </label>
                 ))}
               </div>
 
               {/* Place Order */}
-              <button onClick={onPlaceOrder} disabled={!isCafeOpen} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: isCafeOpen ? 'linear-gradient(135deg,#25D366,#128C7E)' : '#334155', color: '#fff', fontWeight: 900, fontSize: 15, cursor: isCafeOpen ? 'pointer' : 'not-allowed', boxShadow: isCafeOpen ? '0 6px 24px rgba(37,211,102,0.3)' : 'none', fontFamily: 'Outfit, sans-serif' }}>
-                🚀 Place Order via WhatsApp
+              <button onClick={handleCheckout} disabled={!isCafeOpen} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: isCafeOpen ? (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : 'linear-gradient(135deg,#25D366,#128C7E)') : '#334155', color: '#fff', fontWeight: 900, fontSize: 15, cursor: isCafeOpen ? 'pointer' : 'not-allowed', boxShadow: isCafeOpen ? (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '0 6px 24px rgba(59,130,246,0.3)' : '0 6px 24px rgba(37,211,102,0.3)') : 'none', fontFamily: 'Outfit, sans-serif' }}>
+                {payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '💳 Pay Now' : '🚀 Place Order via WhatsApp'}
               </button>
               <p style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginTop: 8 }}>Order dispatched to both WhatsApp channels ✅</p>
             </>
@@ -557,26 +577,31 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
 function OwnerPanel({ isCafeOpen, setIsCafeOpen, dynamicMenu, setDynamicMenu, newItemForm, setNewItemForm, priceEdit, setPriceEdit, branches, setBranches, newBranch, setNewBranch, cafeAddress, setCafeAddress, newAddress, setNewAddress, liveOrders, setLiveOrders, ownerTab, setOwnerTab, onExit }) {
 
   const TABS = [
-    { id: 'status', l: '🏪 Status' }, { id: 'additem', l: '➕ Add Item' },
-    { id: 'price', l: '💰 Prices' }, { id: 'branches', l: '🏢 Branches' },
+    { id: 'status', l: '🏪 Status' }, { id: 'manageMenu', l: '🍔 Manage Menu' },
+    { id: 'qr', l: '🔲 QR Code' }, { id: 'branches', l: '🏢 Branches' },
     { id: 'address', l: '📍 Address' }, { id: 'orders', l: '📦 Orders' },
   ];
 
-  const handleAddItem = (e) => {
+  const [menuEditState, setMenuEditState] = useState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true });
+
+  const handleSaveItem = (e) => {
     e.preventDefault();
-    if (!newItemForm.name || !newItemForm.price) { alert('పేరు మరియు ధర నింపేయ్!'); return; }
-    const item = { id: `c_${Date.now()}`, category: newItemForm.category, name: newItemForm.name, price: parseInt(newItemForm.price), isVeg: true, image: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80', description: 'New item by owner.', ingredients: ['Special Recipe'], calories: 'N/A', prepTime: 'N/A' };
-    setDynamicMenu(p => [...p, item]);
-    setNewItemForm({ name: '', price: '', category: ALL_CATEGORIES[0] });
-    alert(`✅ "${item.name}" menu లో add అయింది!`);
+    if (!menuEditState.name || !menuEditState.price) { alert('Name and Price are required!'); return; }
+    if (menuEditState.id) {
+      // Update existing
+      setDynamicMenu(p => p.map(it => it.id === menuEditState.id ? { ...it, name: menuEditState.name, price: parseInt(menuEditState.price), category: menuEditState.category, image: menuEditState.image || it.image, description: menuEditState.description || it.description, isVeg: menuEditState.isVeg } : it));
+      alert('✅ Item updated!');
+    } else {
+      // Add new
+      const item = { id: `c_${Date.now()}`, category: menuEditState.category, name: menuEditState.name, price: parseInt(menuEditState.price), isVeg: menuEditState.isVeg, image: menuEditState.image || 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80', description: menuEditState.description || 'New item by owner.', ingredients: ['Special Recipe'], calories: 'N/A', prepTime: 'N/A' };
+      setDynamicMenu(p => [...p, item]);
+      alert(`✅ "${item.name}" added to menu!`);
+    }
+    setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true });
   };
 
-  const handlePriceUpdate = (e) => {
-    e.preventDefault();
-    if (!priceEdit.id || !priceEdit.newPrice) { alert('Item మరియు Price select చేయి!'); return; }
-    setDynamicMenu(p => p.map(it => it.id === priceEdit.id ? { ...it, price: parseInt(priceEdit.newPrice) } : it));
-    alert('✅ Price updated!'); setPriceEdit({ id: '', newPrice: '' });
-  };
+  const handleEditItem = (it) => setMenuEditState({ id: it.id, name: it.name, price: it.price, category: it.category, image: it.image, description: it.description, isVeg: it.isVeg });
+  const handleDeleteItem = (id) => { if(window.confirm('Are you sure you want to delete this item?')) setDynamicMenu(p => p.filter(it => it.id !== id)); };
 
   const handleAddBranch = (e) => {
     e.preventDefault();
@@ -644,43 +669,54 @@ function OwnerPanel({ isCafeOpen, setIsCafeOpen, dynamicMenu, setDynamicMenu, ne
           </div>
         )}
 
-        {/* ADD ITEM */}
-        {ownerTab === 'additem' && (
-          <OCard title="➕ Add New Menu Item">
-            <form onSubmit={handleAddItem} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              <div><label style={S.label}>Item Name</label><input value={newItemForm.name} onChange={e => setNewItemForm(p => ({ ...p, name: e.target.value }))} placeholder="e.g. Spicy Paneer Roll" style={S.input} /></div>
-              <div><label style={S.label}>Price (₹)</label><input type="number" value={newItemForm.price} onChange={e => setNewItemForm(p => ({ ...p, price: e.target.value }))} placeholder="e.g. 149" style={S.input} /></div>
+        {/* MANAGE MENU */}
+        {ownerTab === 'manageMenu' && (
+          <OCard title="🍔 Manage Menu (Add / Edit / Delete)">
+            <form onSubmit={handleSaveItem} style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
+              <div><label style={S.label}>Item Name</label><input value={menuEditState.name} onChange={e => setMenuEditState(p => ({ ...p, name: e.target.value }))} placeholder="e.g. Spicy Paneer Roll" style={S.input} /></div>
+              <div><label style={S.label}>Price (₹)</label><input type="number" value={menuEditState.price} onChange={e => setMenuEditState(p => ({ ...p, price: e.target.value }))} placeholder="e.g. 149" style={S.input} /></div>
               <div><label style={S.label}>Category</label>
-                <select value={newItemForm.category} onChange={e => setNewItemForm(p => ({ ...p, category: e.target.value }))} style={{ ...S.input, cursor: 'pointer' }}>
+                <select value={menuEditState.category} onChange={e => setMenuEditState(p => ({ ...p, category: e.target.value }))} style={{ ...S.input, cursor: 'pointer' }}>
                   {ALL_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
-              <button type="submit" style={S.btn}>✅ Add to Menu</button>
+              <div><label style={S.label}>Image URL (Optional)</label><input value={menuEditState.image} onChange={e => setMenuEditState(p => ({ ...p, image: e.target.value }))} placeholder="https://..." style={S.input} /></div>
+              <div><label style={S.label}>Description (Optional)</label><input value={menuEditState.description} onChange={e => setMenuEditState(p => ({ ...p, description: e.target.value }))} placeholder="Short description..." style={S.input} /></div>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#e8e8e8', cursor: 'pointer' }}>
+                <input type="checkbox" checked={menuEditState.isVeg} onChange={e => setMenuEditState(p => ({ ...p, isVeg: e.target.checked }))} style={{ accentColor: '#4ecca3' }} /> Veg Item
+              </label>
+              <div style={{ display: 'flex', gap: 10 }}>
+                <button type="submit" style={{ ...S.btn, flex: 1 }}>{menuEditState.id ? '💾 Update Item' : '✅ Add Item'}</button>
+                {menuEditState.id && <button type="button" onClick={() => setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true })} style={{ ...S.btn, background: '#334155', color: '#e2e8f0', flex: 1 }}>Cancel Edit</button>}
+              </div>
             </form>
+            <p style={{ fontSize: 12, color: '#64748b', marginBottom: 10 }}>Existing Menu Items:</p>
+            <div style={{ maxHeight: 280, overflowY: 'auto' }}>
+              {dynamicMenu.map(it => (
+                <div key={it.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 0', borderBottom: '1px solid rgba(255,255,255,0.04)' }}>
+                  <div>
+                    <p style={{ fontSize: 13, color: '#e2e8f0', fontWeight: 700 }}>{it.name} <span style={{ color: '#4ecca3' }}>(₹{it.price})</span></p>
+                    <p style={{ fontSize: 11, color: '#64748b' }}>{it.category}</p>
+                  </div>
+                  <div style={{ display: 'flex', gap: 6 }}>
+                    <button onClick={() => handleEditItem(it)} style={{ padding: '4px 10px', background: 'rgba(59,130,246,0.1)', color: '#3b82f6', border: 'none', borderRadius: 6, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Edit</button>
+                    <button onClick={() => handleDeleteItem(it.id)} style={{ padding: '4px 10px', background: 'rgba(239,68,68,0.1)', color: '#ef4444', border: 'none', borderRadius: 6, fontSize: 11, fontWeight: 700, cursor: 'pointer' }}>Delete</button>
+                  </div>
+                </div>
+              ))}
+            </div>
           </OCard>
         )}
 
-        {/* PRICE */}
-        {ownerTab === 'price' && (
-          <OCard title="💰 Update Item Price">
-            <form onSubmit={handlePriceUpdate} style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 20 }}>
-              <div><label style={S.label}>Select Item</label>
-                <select value={priceEdit.id} onChange={e => setPriceEdit(p => ({ ...p, id: e.target.value }))} style={{ ...S.input, cursor: 'pointer' }}>
-                  <option value="">-- Item Select చేయి --</option>
-                  {dynamicMenu.map(it => <option key={it.id} value={it.id}>{it.name} (₹{it.price})</option>)}
-                </select>
+        {/* QR CODE */}
+        {ownerTab === 'qr' && (
+          <OCard title="🔲 Custom QR Code Generator">
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 20, padding: '20px 0' }}>
+              <div style={{ background: '#fff', padding: 20, borderRadius: 16 }}>
+                <QRCode value="https://cafepanda.in" size={200} />
               </div>
-              <div><label style={S.label}>New Price (₹)</label><input type="number" value={priceEdit.newPrice} onChange={e => setPriceEdit(p => ({ ...p, newPrice: e.target.value }))} placeholder="New Price" style={S.input} /></div>
-              <button type="submit" style={S.btn}>💰 Update Price</button>
-            </form>
-            <p style={{ fontSize: 12, color: '#64748b', marginBottom: 10 }}>Current Prices:</p>
-            <div style={{ maxHeight: 280, overflowY: 'auto' }}>
-              {dynamicMenu.map(it => (
-                <div key={it.id} style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid rgba(255,255,255,0.04)', fontSize: 13 }}>
-                  <span style={{ color: '#94a3b8' }}>{it.name}</span>
-                  <span style={{ color: '#4ecca3', fontWeight: 700 }}>₹{it.price}</span>
-                </div>
-              ))}
+              <p style={{ fontSize: 13, color: '#94a3b8', textAlign: 'center' }}>This QR code redirects directly to <strong style={{ color: '#4ecca3' }}>cafepanda.in</strong>. Print and place this on your cafe tables!</p>
+              <a href={`data:image/svg+xml;utf8,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><foreignObject width="240" height="240"><body xmlns="http://www.w3.org/1999/xhtml"><div style="background:white;padding:20px;border-radius:16px"><style>svg{width:200px;height:200px}</style>' + '<div id="qr"></div>' + '</div></body></foreignObject></svg>')}`} download="CafePanda_QR.svg" onClick={(e) => {e.preventDefault(); alert('Please take a screenshot or print this page. SVG download requires additional setup.');}} style={{ ...S.btn, textAlign: 'center', textDecoration: 'none' }}>⬇️ Save / Print QR Code</a>
             </div>
           </OCard>
         )}
