@@ -14,54 +14,151 @@ import QRCode from 'react-qr-code';
 //  FULL MENU DATABASE WITH INGREDIENT METADATA
 // ─────────────────────────────────────────────────────────────────
 const MENU_DATA = [
-  // QUICK BITES
-  { id: 'qb1', category: 'QUICK BITES', name: 'Funky Fries (Plain)', price: 60, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Crispy golden fries seasoned with sea salt, served piping hot.', ingredients: ['Potatoes', 'Sunflower Oil', 'Sea Salt', 'Mixed Herbs'], calories: '280 kcal', prepTime: '8 mins' },
-  { id: 'qb2', category: 'QUICK BITES', name: 'Salted Fries', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1630431341973-02e1b662ec35?w=600&q=80', description: 'Classic thin-cut fries with a perfect salt coating.', ingredients: ['Potatoes', 'Salt', 'Refined Oil', 'Pepper'], calories: '300 kcal', prepTime: '8 mins' },
-  { id: 'qb3', category: 'QUICK BITES', name: 'Peri Peri Fries', price: 99, isVeg: true, image: '/images/peri-peri-fries.png', description: 'Spicy peri-peri dusted fries with a fiery African chilli kick.', ingredients: ['Potatoes', 'Peri Peri Masala', 'Paprika', 'Garlic Powder', 'Oil'], calories: '340 kcal', prepTime: '10 mins' },
-  { id: 'qb4', category: 'QUICK BITES', name: 'Garlic Pops (15 pcs)', price: 99, isVeg: true, image: '/images/garlic-pops.png', description: 'Bite-sized garlic-flavoured corn pops, perfectly crunchy.', ingredients: ['Corn', 'Garlic Butter', 'Parsley', 'Salt', 'Oil'], calories: '310 kcal', prepTime: '12 mins' },
-  { id: 'qb5', category: 'QUICK BITES', name: 'Veg Nuggets (10 pcs)', price: 99, isVeg: true, image: '/images/veg-nuggets.png', description: 'Golden-crumbed vegetable nuggets with a soft veggie core.', ingredients: ['Mixed Vegetables', 'Breadcrumbs', 'Corn Starch', 'Spices', 'Oil'], calories: '320 kcal', prepTime: '12 mins' },
-  { id: 'qb6', category: 'QUICK BITES', name: 'Corn Rolls (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?w=600&q=80', description: 'Crispy pastry rolls stuffed with spiced sweet corn filling.', ingredients: ['Sweet Corn', 'Spring Roll Sheet', 'Green Chilli', 'Cumin', 'Cheese'], calories: '290 kcal', prepTime: '14 mins' },
-  { id: 'qb7', category: 'QUICK BITES', name: 'Onion Rings (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1639024471283-03518883512d?w=600&q=80', description: 'Battered and fried thick onion rings with a crispy golden coat.', ingredients: ['Onions', 'All-Purpose Flour', 'Buttermilk', 'Paprika', 'Salt'], calories: '260 kcal', prepTime: '10 mins' },
-  { id: 'qb8', category: 'QUICK BITES', name: 'Veg Lollipops (5 pcs)', price: 99, isVeg: true, image: '/images/veg-lollipops.png', description: 'Fun stick-mounted veggie lollipops coated in tangy sauce.', ingredients: ['Mixed Veggies', 'Cornflour', 'Soy Sauce', 'Ginger-Garlic', 'Chilli Sauce'], calories: '280 kcal', prepTime: '15 mins' },
-  // NON-VEG SNACKATORY
-  { id: 'nv1', category: 'NON-VEG SNACKATORY', name: 'Chicken Nuggets (6 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Juicy chicken nuggets with a crunchy breadcrumb coating.', ingredients: ['Chicken Breast', 'Breadcrumbs', 'Egg', 'Garlic', 'Mixed Spices'], calories: '380 kcal', prepTime: '12 mins' },
-  { id: 'nv2', category: 'NON-VEG SNACKATORY', name: 'Chicken Fingers (4 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=600&q=80', description: 'Tender strips of marinated chicken, crispy on the outside.', ingredients: ['Chicken Strips', 'Buttermilk', 'Seasoned Flour', 'Paprika', 'Oil'], calories: '360 kcal', prepTime: '14 mins' },
-  { id: 'nv3', category: 'NON-VEG SNACKATORY', name: 'Chicken Popcorn (15 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1606755456206-b25206cde27e?w=600&q=80', description: 'Bite-sized popcorn chicken with a light crispy batter.', ingredients: ['Chicken Thighs', 'Cornflour', 'Hot Sauce', 'Garlic Powder', 'Oil'], calories: '420 kcal', prepTime: '15 mins' },
-  { id: 'nv4', category: 'NON-VEG SNACKATORY', name: 'Chicken Loaded French Fries', price: 199, isVeg: false, image: '/images/chicken-loaded-fries.png', description: 'Fries loaded with spiced chicken, melted cheese and jalapenos.', ingredients: ['Fries', 'Chicken Pieces', 'Cheddar Cheese', 'Jalapenos', 'Sour Cream', 'Spring Onion'], calories: '620 kcal', prepTime: '18 mins' },
-  // MOMO MAMA
-  { id: 'm1', category: 'MOMO MAMA (5 Pcs)', name: 'Classic Fried Momos', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Pan-fried dumplings with a crispy base and juicy veggie filling.', ingredients: ['Maida', 'Cabbage', 'Carrot', 'Ginger', 'Garlic', 'Soy Sauce'], calories: '320 kcal', prepTime: '15 mins' },
-  { id: 'm2', category: 'MOMO MAMA (5 Pcs)', name: 'Classic Veg Steamed Momos', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1626714853040-a5a85ccd52a3?w=600&q=80', description: 'Soft steamed momos stuffed with fresh vegetables.', ingredients: ['Maida', 'Cabbage', 'Spring Onion', 'Carrot', 'Pepper', 'Sesame Oil'], calories: '280 kcal', prepTime: '18 mins' },
-  { id: 'm3', category: 'MOMO MAMA (5 Pcs)', name: 'Schezwan Pan-Fried Momos', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1563245372-f21724e3856d?w=600&q=80', description: 'Momos tossed in fiery Schezwan sauce after pan-frying.', ingredients: ['Maida', 'Mixed Veggies', 'Schezwan Sauce', 'Sesame', 'Chilli Oil'], calories: '350 kcal', prepTime: '20 mins' },
-  // VEG PIZZA
-  { id: 'vp1', category: 'VEG PIZZA', name: 'Classic Margherita Pizza', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=600&q=80', description: 'Timeless Margherita with hand-crushed tomato base and fresh mozzarella.', ingredients: ['Pizza Dough', 'Tomato Sauce', 'Fresh Mozzarella', 'Basil', 'Olive Oil'], calories: '520 kcal', prepTime: '20 mins' },
-  { id: 'vp2', category: 'VEG PIZZA', name: 'Creamy Golden Corn Pizza', price: 209, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Sweet corn on a creamy white sauce base with mozzarella drizzle.', ingredients: ['Pizza Base', 'White Sauce', 'Sweet Corn', 'Mozzarella', 'Bell Pepper', 'Oregano'], calories: '560 kcal', prepTime: '22 mins' },
-  { id: 'vp3', category: 'VEG PIZZA', name: 'Peppy Paneer Pizza', price: 209, isVeg: true, image: 'https://images.unsplash.com/photo-1571407970349-bc81e7e96d47?w=600&q=80', description: 'Spiced paneer cubes on a tangy tomato base with cheddar melt.', ingredients: ['Pizza Base', 'Tomato Sauce', 'Paneer', 'Onion', 'Capsicum', 'Cheddar'], calories: '590 kcal', prepTime: '22 mins' },
-  { id: 'vp4', category: 'VEG PIZZA', name: 'Peri Peri Paneer Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1528605248644-14dd04022da1?w=600&q=80', description: 'Paneer marinated in peri-peri sauce on a spicy tomato base.', ingredients: ['Pizza Base', 'Peri Peri Sauce', 'Paneer', 'Red Onion', 'Mozzarella', 'Parsley'], calories: '610 kcal', prepTime: '22 mins' },
-  { id: 'vp5', category: 'VEG PIZZA', name: 'BBQ Corn Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=600&q=80', description: 'Smoky BBQ base with sweet corn, onions and double cheese.', ingredients: ['Pizza Base', 'BBQ Sauce', 'Sweet Corn', 'Onion', 'Mozzarella', 'Gouda', 'Smoked Paprika'], calories: '620 kcal', prepTime: '24 mins' },
-  // BURGER MAFIA
-  { id: 'b1', category: 'BURGER MAFIA', name: 'Veg Patty Burger', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Crispy veggie patty with fresh lettuce, tomato and burger sauce.', ingredients: ['Brioche Bun', 'Veg Patty', 'Lettuce', 'Tomato', 'Onion', 'Burger Sauce'], calories: '410 kcal', prepTime: '12 mins' },
-  { id: 'b2', category: 'BURGER MAFIA', name: 'Cheesy Veg Patty Burger', price: 119, isVeg: true, image: 'https://images.unsplash.com/photo-1553979459-d2229ba7433b?w=600&q=80', description: 'Veg burger loaded with melted American cheese slice.', ingredients: ['Brioche Bun', 'Veg Patty', 'American Cheese', 'Lettuce', 'Pickles', 'Mustard'], calories: '460 kcal', prepTime: '13 mins' },
-  { id: 'b3', category: 'BURGER MAFIA', name: 'Mayo Loaded Veg Burger', price: 129, isVeg: true, image: 'https://images.unsplash.com/photo-1582196016295-f8c8bd4b3a99?w=600&q=80', description: 'Generous mayo drizzle with crispy veg patty and coleslaw.', ingredients: ['Sesame Bun', 'Veg Patty', 'Mayonnaise', 'Coleslaw', 'Jalapenos', 'Tomato'], calories: '490 kcal', prepTime: '13 mins' },
-  { id: 'b6', category: 'BURGER MAFIA', name: 'Chicken Patty Burger', price: 119, isVeg: false, image: 'https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?w=600&q=80', description: 'Juicy grilled chicken patty with house sauce and fresh veggies.', ingredients: ['Brioche Bun', 'Chicken Patty', 'Lettuce', 'Tomato', 'Onion', 'Burger Sauce'], calories: '480 kcal', prepTime: '15 mins' },
-  { id: 'b7', category: 'BURGER MAFIA', name: 'Cheesy Chicken Patty Burger', price: 139, isVeg: false, image: 'https://images.unsplash.com/photo-1565299507177-b0ac66763828?w=600&q=80', description: 'Crispy chicken patty with double cheese and signature sauce.', ingredients: ['Brioche Bun', 'Chicken Patty', 'Double Cheese', 'Pickles', 'Special Sauce', 'Cabbage'], calories: '530 kcal', prepTime: '16 mins' },
-  // BOBA COLD COFFEE
-  { id: 'bc1', category: 'BOBA COLD COFFEE', name: 'Boba Pearl Cold Coffee', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Creamy cold coffee topped with chewy tapioca boba pearls.', ingredients: ['Cold Brew Coffee', 'Milk', 'Sugar Syrup', 'Tapioca Pearls', 'Ice', 'Cream'], calories: '290 kcal', prepTime: '8 mins' },
-  { id: 'bc2', category: 'BOBA COLD COFFEE', name: 'Double Shot Boba C.C', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80', description: 'Extra strong double espresso shot cold coffee with boba.', ingredients: ['Double Espresso', 'Milk', 'Brown Sugar Syrup', 'Boba Pearls', 'Ice'], calories: '310 kcal', prepTime: '10 mins' },
-  { id: 'bc3', category: 'BOBA COLD COFFEE', name: 'Choco Boba C.C', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?w=600&q=80', description: 'Chocolate-swirled cold coffee with chewy boba pearls.', ingredients: ['Espresso', 'Chocolate Sauce', 'Milk', 'Boba Pearls', 'Ice', 'Whipped Cream'], calories: '340 kcal', prepTime: '10 mins' },
-  // MILKSHAKES & BOBA
-  { id: 'ms1', category: 'MILKSHAKES & BOBA', name: 'Vanilla Snow Milkshake', price: 100, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Classic vanilla milkshake blended to a velvety smooth finish.', ingredients: ['Vanilla Ice Cream', 'Full-Fat Milk', 'Vanilla Extract', 'Sugar', 'Whipped Cream'], calories: '380 kcal', prepTime: '5 mins' },
-  { id: 'ms2', category: 'MILKSHAKES & BOBA', name: 'Strawberry Shake', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1553361371-9b22f78e8b1d?w=600&q=80', description: 'Fresh strawberry blended with ice cream for a fruity delight.', ingredients: ['Strawberries', 'Strawberry Ice Cream', 'Milk', 'Sugar Syrup', 'Whipped Cream'], calories: '360 kcal', prepTime: '5 mins' },
-  { id: 'ms3', category: 'MILKSHAKES & BOBA', name: 'Oreo Vanilla Thickshake', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1616688085827-1c62b4671cf9?w=600&q=80', description: 'Thick Oreo-crumbled shake with vanilla base and cookie crunch.', ingredients: ['Oreo Cookies', 'Vanilla Ice Cream', 'Milk', 'Cream', 'Chocolate Sauce'], calories: '480 kcal', prepTime: '7 mins' },
-  // MOCKTAILS & MOJITOS
-  { id: 'mo1', category: 'MOCKTAILS & MOJITOS', name: 'Blue Margarita Mocktail', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Vibrant blue curacao-inspired mocktail with a citrus salt rim.', ingredients: ['Blue Curacao Syrup', 'Lime Juice', 'Soda Water', 'Salt Rim', 'Ice', 'Orange Slice'], calories: '120 kcal', prepTime: '5 mins' },
-  { id: 'mo2', category: 'MOCKTAILS & MOJITOS', name: 'Mint Blast Mojito', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1497534446932-c925b458314e?w=600&q=80', description: 'Refreshing classic mojito with crushed mint and lime fizz.', ingredients: ['Fresh Mint', 'Lime', 'Sugar', 'Soda Water', 'Ice', 'Lime Zest'], calories: '100 kcal', prepTime: '5 mins' },
-  // DESSERTS & CHOCOLATES
-  { id: 'd1', category: 'DESSERTS & CHOCOLATES', name: 'Hot Choco Brownie', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Warm fudgy brownie with gooey chocolate centre, served hot.', ingredients: ['Dark Chocolate', 'Butter', 'Sugar', 'Eggs', 'Flour', 'Vanilla', 'Cocoa'], calories: '420 kcal', prepTime: '10 mins' },
-  { id: 'd2', category: 'DESSERTS & CHOCOLATES', name: 'Choco Brownie with Ice Cream', price: 125, isVeg: true, image: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=600&q=80', description: 'Fudgy brownie topped with a scoop of vanilla ice cream.', ingredients: ['Brownie', 'Vanilla Ice Cream', 'Chocolate Sauce', 'Nuts', 'Whipped Cream'], calories: '580 kcal', prepTime: '10 mins' },
-  { id: 'd4', category: 'DESSERTS & CHOCOLATES', name: 'Classic Cream Kunafa', price: 299, isVeg: true, image: 'https://images.unsplash.com/photo-1656268164012-119304af0c69?w=600&q=80', description: 'Traditional Middle-Eastern Kunafa with cream filling and sugar syrup.', ingredients: ['Kataifi Pastry', 'Ashta Cream', 'Sugar Syrup', 'Rose Water', 'Pistachios', 'Ghee'], calories: '560 kcal', prepTime: '20 mins' },
-  { id: 'd5', category: 'DESSERTS & CHOCOLATES', name: 'Dubai Kunafa Chocolate Bar', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1511381939415-e44015466834?w=600&q=80', description: 'Viral Dubai-style chocolate bar with Kunafa and pistachio filling.', ingredients: ['Dark Chocolate', 'Kataifi', 'Pistachio Paste', 'Tahini', 'Butter'], calories: '490 kcal', prepTime: '15 mins' },
-  { id: 'd6', category: 'DESSERTS & CHOCOLATES', name: 'Choco Crunch Magic Cookie', price: 60, isVeg: true, image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?w=600&q=80', description: 'Crunchy chocolate chip cookie with a gooey soft centre.', ingredients: ['Butter', 'Brown Sugar', 'Flour', 'Chocolate Chips', 'Vanilla', 'Egg', 'Baking Soda'], calories: '280 kcal', prepTime: '8 mins' },
+  { id: 'item_1', category: 'QUICK BITES', name: 'Funky Fries (Plain)', price: 60, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Funky Fries (Plain)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_2', category: 'QUICK BITES', name: 'Salted Fries', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Salted Fries', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_3', category: 'QUICK BITES', name: 'Peri Peri Fries', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Peri Peri Fries', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_4', category: 'QUICK BITES', name: 'Garlic Pops (15 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Garlic Pops (15 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_5', category: 'QUICK BITES', name: 'Veg Nuggets (10 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Veg Nuggets (10 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_6', category: 'QUICK BITES', name: 'Corn Rolls (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Corn Rolls (5 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_7', category: 'QUICK BITES', name: 'Onion rings (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Onion rings (5 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_8', category: 'QUICK BITES', name: 'Veg lollipops (5 pcs)', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Veg lollipops (5 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_9', category: 'ADD-ONS (QUICK BITES)', name: 'Peri Peri Sprinkler', price: 10, isVeg: true, image: 'https://images.unsplash.com/photo-1576107232684-1279f390859f?w=600&q=80', description: 'Delicious Peri Peri Sprinkler', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_10', category: 'NON VEG SNACKATORY', name: 'Chicken Nuggets (6 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Chicken Nuggets (6 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_11', category: 'NON VEG SNACKATORY', name: 'Chicken Fingers (4 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Chicken Fingers (4 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_12', category: 'NON VEG SNACKATORY', name: 'Chicken Popcorn (15 pcs)', price: 99, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Chicken Popcorn (15 pcs)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_13', category: 'NON VEG SNACKATORY', name: 'Chicken Loaded French fries', price: 199, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Chicken Loaded French fries', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_14', category: 'VEG MOMOS (5Pcs)', name: 'Classic Veg Fried Momos', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Classic Veg Fried Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_15', category: 'VEG MOMOS (5Pcs)', name: 'Classic Veg Steamed Momos', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Classic Veg Steamed Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_16', category: 'VEG MOMOS (5Pcs)', name: 'Classic Veg Schezwan Momos', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Classic Veg Schezwan Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_17', category: 'VEG MOMOS (5Pcs)', name: 'Pan-Fried Momos', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Pan-Fried Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_18', category: 'NON-VEG MOMOS', name: 'Chicken Fried Momos', price: 110, isVeg: false, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Chicken Fried Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_19', category: 'NON-VEG MOMOS', name: 'Chicken Steamed Momos', price: 120, isVeg: false, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Chicken Steamed Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_20', category: 'NON-VEG MOMOS', name: 'Schezwan Pan-Fried Momos', price: 120, isVeg: false, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Schezwan Pan-Fried Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_21', category: 'NON-VEG MOMOS', name: 'Chicken Momos', price: 150, isVeg: false, image: 'https://images.unsplash.com/photo-1625398407796-82650a8c135f?w=600&q=80', description: 'Delicious Chicken Momos', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_22', category: 'LORD OF THE WINGS (3Pc)', name: 'Crunchy Chicken Wings', price: 150, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Crunchy Chicken Wings', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_23', category: 'LORD OF THE WINGS (3Pc)', name: 'Peri Peri Chicken Wings', price: 170, isVeg: false, image: 'https://images.unsplash.com/photo-1562967914-608f82629710?w=600&q=80', description: 'Delicious Peri Peri Chicken Wings', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_24', category: 'VEG PIZZA', name: 'Classic Margherita Pizza', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Classic Margherita Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_25', category: 'VEG PIZZA', name: 'Creamy Golden Corn Pizza', price: 209, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Creamy Golden Corn Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_26', category: 'VEG PIZZA', name: 'Peppy Paneer Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Peppy Paneer Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_27', category: 'VEG PIZZA', name: 'Peri Peri Paneer Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Peri Peri Paneer Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_28', category: 'VEG PIZZA', name: 'BBQ Corn Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious BBQ Corn Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_29', category: 'VEG PIZZA', name: 'BBQ Paneer Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious BBQ Paneer Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_30', category: 'VEG PIZZA', name: 'Peri Peri Paneer Pizza', price: 219, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Peri Peri Paneer Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_31', category: 'VEG PIZZA', name: 'Veg Carnival Pizza', price: 249, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Veg Carnival Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_32', category: 'ADD-ONS (PIZZA)', name: 'Cheese Slice', price: 25, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Cheese Slice', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_33', category: 'ADD-ONS (PIZZA)', name: 'Extra Pizza Cheese', price: 40, isVeg: true, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Extra Pizza Cheese', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_34', category: 'NON-VEG PIZZA', name: 'Classic Chicken Pizza', price: 209, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Classic Chicken Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_35', category: 'NON-VEG PIZZA', name: 'Chicken & Corn Pizza', price: 209, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Chicken & Corn Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_36', category: 'NON-VEG PIZZA', name: 'BBQ Chicken Pizza', price: 209, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious BBQ Chicken Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_37', category: 'NON-VEG PIZZA', name: 'Chicken Paneer Pizza', price: 249, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Chicken Paneer Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_38', category: 'NON-VEG PIZZA', name: 'Chicken Popcorn Pizza', price: 249, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Chicken Popcorn Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_39', category: 'NON-VEG PIZZA', name: 'Chicken Nuggets Pizza', price: 259, isVeg: false, image: 'https://images.unsplash.com/photo-1513104890138-7c749659a591?w=600&q=80', description: 'Delicious Chicken Nuggets Pizza', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_40', category: 'BEVERAGES', name: 'Water', price: 10, isVeg: true, image: 'https://images.unsplash.com/photo-1548839140-29a749e1ab4c?w=600&q=80', description: 'Delicious Water', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_41', category: 'BEVERAGES', name: 'Coke', price: 40, isVeg: true, image: 'https://images.unsplash.com/photo-1548839140-29a749e1ab4c?w=600&q=80', description: 'Delicious Coke', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_42', category: 'BEVERAGES', name: 'ThumsUP', price: 40, isVeg: true, image: 'https://images.unsplash.com/photo-1548839140-29a749e1ab4c?w=600&q=80', description: 'Delicious ThumsUP', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_43', category: 'BEVERAGES', name: 'Sprite', price: 40, isVeg: true, image: 'https://images.unsplash.com/photo-1548839140-29a749e1ab4c?w=600&q=80', description: 'Delicious Sprite', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_44', category: 'VEG BURGERS', name: 'Veg Patty Burger', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Veg Patty Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_45', category: 'VEG BURGERS', name: 'Cheesy Veg Patty Burger', price: 119, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Cheesy Veg Patty Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_46', category: 'VEG BURGERS', name: 'Mayo Loaded Veg Burger', price: 129, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Mayo Loaded Veg Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_47', category: 'VEG BURGERS', name: 'Veg Double Patty Burger', price: 139, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Veg Double Patty Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_48', category: 'VEG BURGERS', name: 'Veg Supreme Burger', price: 159, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Veg Supreme Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_49', category: 'NON-VEG BURGERS', name: 'Chicken Patty Burger', price: 119, isVeg: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Chicken Patty Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_50', category: 'NON-VEG BURGERS', name: 'Cheesy Chicken Patty Burger', price: 139, isVeg: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Cheesy Chicken Patty Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_51', category: 'NON-VEG BURGERS', name: 'Mayo Loaded Chicken Burger', price: 139, isVeg: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Mayo Loaded Chicken Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_52', category: 'NON-VEG BURGERS', name: 'Double Patty Chicken Burger', price: 169, isVeg: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Double Patty Chicken Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_53', category: 'NON-VEG BURGERS', name: 'Chicken Supreme Burger', price: 179, isVeg: false, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Chicken Supreme Burger', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_54', category: 'ADD-ONS (BURGERS)', name: 'Cheese Slice', price: 25, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Cheese Slice', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_55', category: 'DESSERTS', name: 'Choco Brownie (Hot)', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Choco Brownie (Hot)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_56', category: 'DESSERTS', name: 'Choco Brownie with Ice Cream', price: 125, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Choco Brownie with Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_57', category: 'DESSERTS', name: 'Red Velvet Brownie with Ice Cream', price: 125, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Red Velvet Brownie with Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_58', category: 'BROWNIE BOWLS (250ml Bowl)', name: 'Oreo Brownie Bowl', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Oreo Brownie Bowl', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_59', category: 'BROWNIE BOWLS (250ml Bowl)', name: 'KitKat Brownie Bowl', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious KitKat Brownie Bowl', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_60', category: 'BROWNIE BOWLS (250ml Bowl)', name: 'Caramel Biscuit Brownie Bowl', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Caramel Biscuit Brownie Bowl', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_61', category: 'BROWNIE BOWLS (250ml Bowl)', name: 'Kunafa Brownie Bowl', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Kunafa Brownie Bowl', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_62', category: 'ADD-ONS (KUNAFA)', name: 'Classic Cream Kunafa', price: 299, isVeg: true, image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=600&q=80', description: 'Delicious Classic Cream Kunafa', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_63', category: 'ADD-ONS (DESSERTS)', name: 'Ice Cream', price: 25, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_64', category: 'ADD-ONS (DESSERTS)', name: 'Caramel', price: 30, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Caramel', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_65', category: 'CHOCOLATES (Made with Couverture Chocolate)', name: 'Kunafa Chocolate Bar', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1607478900766-efe13248b125?w=600&q=80', description: 'Delicious Kunafa Chocolate Bar', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_66', category: 'BOBA COLD COFFEE', name: 'Boba Pearl Cold Coffee', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Boba Pearl Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_67', category: 'BOBA COLD COFFEE', name: 'Double Shot Boba CC', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Double Shot Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_68', category: 'BOBA COLD COFFEE', name: 'Choco Boba CC', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Choco Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_69', category: 'BOBA COLD COFFEE', name: 'Oreo Boba CC', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Oreo Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_70', category: 'BOBA COLD COFFEE', name: 'Caramel Boba CC', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Caramel Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_71', category: 'BOBA COLD COFFEE', name: 'Kitkat Boba CC', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Kitkat Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_72', category: 'BOBA COLD COFFEE', name: 'Hazelnut Choco Boba CC', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Hazelnut Choco Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_73', category: 'BOBA COLD COFFEE', name: 'Brownie Boba CC', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Brownie Boba CC', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_74', category: 'MILKSHAKES', name: 'Vanilla Snow', price: 100, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Vanilla Snow', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_75', category: 'MILKSHAKES', name: 'Strawberry', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Strawberry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_76', category: 'MILKSHAKES', name: 'Oreo Vanilla', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Vanilla', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_77', category: 'MILKSHAKES', name: 'Butterscotch', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Butterscotch', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_78', category: 'MILKSHAKES', name: 'Chocolate', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocolate', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_79', category: 'MILKSHAKES', name: 'Oreo Choco', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Choco', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_80', category: 'MILKSHAKES', name: 'Oreo Strawberry', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Strawberry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_81', category: 'MILKSHAKES', name: 'Blue Moon Vanilla', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Blue Moon Vanilla', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_82', category: 'MILKSHAKES', name: 'Caramel Choco', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Choco', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_83', category: 'MILKSHAKES', name: 'Caramel Butterscotch', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Butterscotch', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_84', category: 'MILKSHAKES', name: 'Black Currant', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Black Currant', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_85', category: 'MILKSHAKES', name: 'Blue Berry', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Blue Berry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_86', category: 'MILKSHAKES', name: 'Chocochip', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocochip', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_87', category: 'MILKSHAKES', name: 'Caramel Kitkat', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Kitkat', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_88', category: 'MILKSHAKES', name: 'Caramel Oreo', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Oreo', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_89', category: 'MILKSHAKES', name: 'Kitkat MS', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Kitkat MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_90', category: 'MILKSHAKES', name: 'Choco Brownie MS', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Choco Brownie MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_91', category: 'MILKSHAKES', name: 'Dry Fruit MS', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Dry Fruit MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_92', category: 'MILKSHAKES', name: 'Red Velvet MS', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Red Velvet MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_93', category: 'MOCKTAILS', name: 'Blue Margarita', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Delicious Blue Margarita', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_94', category: 'MOCKTAILS', name: 'Mint Blast Mojito', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Delicious Mint Blast Mojito', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_95', category: 'MOCKTAILS', name: 'Raspberry Twist', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Delicious Raspberry Twist', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_96', category: 'MOCKTAILS', name: 'Bubblegum Temptation', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Delicious Bubblegum Temptation', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_97', category: 'MOCKTAILS', name: 'Watermelon Mojito', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1587223962930-cb7f31384c19?w=600&q=80', description: 'Delicious Watermelon Mojito', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_98', category: 'THICKSHAKES', name: 'Oreo Crumble TS', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Crumble TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_99', category: 'THICKSHAKES', name: 'Kitkat TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Kitkat TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_100', category: 'THICKSHAKES', name: 'Chocochip TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocochip TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_101', category: 'THICKSHAKES', name: 'Mississippi Mud TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Mississippi Mud TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_102', category: 'THICKSHAKES', name: 'Caramel Biscuit TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Biscuit TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_103', category: 'THICKSHAKES', name: 'Oreo Choco TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Choco TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_104', category: 'THICKSHAKES', name: 'Caramel Oreo TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Oreo TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_105', category: 'THICKSHAKES', name: 'Oreo Thick Coffee', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Thick Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_106', category: 'THICKSHAKES', name: 'Choco Thick Coffee', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Choco Thick Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_107', category: 'THICKSHAKES', name: 'Caramel Kitkat TS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Kitkat TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_108', category: 'THICKSHAKES', name: 'Caramel Brownie TS', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Brownie TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_109', category: 'THICKSHAKES', name: 'Chunky Choco Brownie TS', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chunky Choco Brownie TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_110', category: 'THICKSHAKES', name: 'Kitkat Thick Coffee', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Kitkat Thick Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_111', category: 'THICKSHAKES', name: 'Brownie Thick Coffee', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Brownie Thick Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_112', category: 'THICKSHAKES', name: 'Royal Red Velvet TS', price: 199, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Royal Red Velvet TS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_113', category: 'COLD COFFEE', name: 'Cold Coffee (Plain)', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Cold Coffee (Plain)', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_114', category: 'COLD COFFEE', name: 'Double Shot Cold Coffee', price: 100, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Double Shot Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_115', category: 'COLD COFFEE', name: 'Chocolate Cold Coffee', price: 110, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Chocolate Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_116', category: 'COLD COFFEE', name: 'Caramel Cold Coffee', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Caramel Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_117', category: 'COLD COFFEE', name: 'Oreo Choco Cold Coffee', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Oreo Choco Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_118', category: 'COLD COFFEE', name: 'Hazelnut Choco Cold Coffee', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Hazelnut Choco Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_119', category: 'COLD COFFEE', name: 'Kitkat Cold Coffee', price: 120, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Kitkat Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_120', category: 'COLD COFFEE', name: 'Brownie Cold Coffee', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80', description: 'Delicious Brownie Cold Coffee', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_121', category: 'BOBA MILKSHAKES', name: 'Vanilla Snow', price: 130, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Vanilla Snow', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_122', category: 'BOBA MILKSHAKES', name: 'Strawberry', price: 140, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Strawberry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_123', category: 'BOBA MILKSHAKES', name: 'Oreo Vanilla', price: 150, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Vanilla', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_124', category: 'BOBA MILKSHAKES', name: 'Butterscotch', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Butterscotch', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_125', category: 'BOBA MILKSHAKES', name: 'Chocolate', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocolate', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_126', category: 'BOBA MILKSHAKES', name: 'Oreo Choco', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Choco', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_127', category: 'BOBA MILKSHAKES', name: 'Oreo Strawberry', price: 160, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Oreo Strawberry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_128', category: 'BOBA MILKSHAKES', name: 'Blue Moon Vanilla', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Blue Moon Vanilla', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_129', category: 'BOBA MILKSHAKES', name: 'Caramel Choco', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Choco', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_130', category: 'BOBA MILKSHAKES', name: 'Caramel Butterscotch', price: 170, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Butterscotch', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_131', category: 'BOBA MILKSHAKES', name: 'Black Currant', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Black Currant', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_132', category: 'BOBA MILKSHAKES', name: 'Blue Berry', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Blue Berry', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_133', category: 'BOBA MILKSHAKES', name: 'Chocochip', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocochip', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_134', category: 'BOBA MILKSHAKES', name: 'Caramel Kitkat', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Kitkat', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_135', category: 'BOBA MILKSHAKES', name: 'Caramel Oreo', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Caramel Oreo', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_136', category: 'BOBA MILKSHAKES', name: 'Kitkat MS', price: 180, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Kitkat MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_137', category: 'BOBA MILKSHAKES', name: 'Choco Brownie MS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Choco Brownie MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_138', category: 'BOBA MILKSHAKES', name: 'Red Velvet MS', price: 190, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Red Velvet MS', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_139', category: 'ICE CREAM (2 Scoops)', name: 'Vanilla Ice Cream', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Vanilla Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_140', category: 'ICE CREAM (2 Scoops)', name: 'Strawberry Ice Cream', price: 80, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Strawberry Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_141', category: 'ICE CREAM (2 Scoops)', name: 'Chocolate Ice Cream', price: 90, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Chocolate Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_142', category: 'ICE CREAM (2 Scoops)', name: 'Butterscotch Ice Cream', price: 99, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Butterscotch Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
+  { id: 'item_143', category: 'ICE CREAM (2 Scoops)', name: 'Dry Fruit / Seasonal Fruit Ice Cream', price: 109, isVeg: true, image: 'https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=600&q=80', description: 'Delicious Dry Fruit / Seasonal Fruit Ice Cream', ingredients: [], calories: 'N/A', prepTime: '10 mins' },
 ];
+
 
 const DELIVERY_FEE = 50;
 const MIN_ORDER = 190;
@@ -266,8 +363,8 @@ export default function App() {
 
       {/* ── CLOSED NOTICE ── */}
       {!isCafeOpen && (
-        <div style={{ background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', margin: '10px 16px', borderRadius: 10, padding: '10px 14px', textAlign: 'center', fontSize: 13, color: '#fca5a5', fontWeight: 700 }}>
-          🔴 భయ్యా, Cafe ఇప్పుడు క్లోజ్ అయింది! తొందర్లో తిరిగి వస్తాం! 🐼
+        <div style={{ background: 'rgba(239,68,68,0.12)', border: '2px solid rgba(239,68,68,0.5)', margin: '15px 16px', borderRadius: 12, padding: '16px 20px', textAlign: 'center', fontSize: 14, color: '#fca5a5', fontWeight: 800, boxShadow: '0 4px 12px rgba(239,68,68,0.2)' }}>
+          🛑 Cafe is Currently Closed. We are not accepting orders at the moment. You can still browse our menu!
         </div>
       )}
 
@@ -409,8 +506,10 @@ function MenuCard({ item, onAdd, onOpen, isCafeOpen, qty, onChangeQty }) {
             <span style={{ fontWeight: 900, fontSize: 15, color: '#4ecca3', minWidth: 18, textAlign: 'center' }}>{qty}</span>
             <button onClick={() => onChangeQty(item.id, 1)} style={S.qtyBtn}>+</button>
           </div>
+        ) : isCafeOpen ? (
+          <button onClick={() => onAdd(item)} style={{ width: '100%', padding: '8px', borderRadius: 10, border: '1px solid rgba(78,204,163,0.3)', background: 'rgba(78,204,163,0.1)', color: '#4ecca3', fontSize: 12, fontWeight: 700, cursor: 'pointer' }}>+ Add</button>
         ) : (
-          <button disabled={!isCafeOpen} onClick={() => onAdd(item)} style={{ width: '100%', padding: '8px', borderRadius: 10, border: '1px solid rgba(78,204,163,0.3)', background: isCafeOpen ? 'rgba(78,204,163,0.1)' : 'rgba(255,255,255,0.04)', color: isCafeOpen ? '#4ecca3' : '#475569', fontSize: 12, fontWeight: 700, cursor: isCafeOpen ? 'pointer' : 'not-allowed' }}>+ Add</button>
+          <div style={{ width: '100%', padding: '8px', textAlign: 'center', fontSize: 12, color: '#64748b', fontWeight: 700 }}>Closed</div>
         )}
       </div>
     </div>
@@ -451,9 +550,15 @@ function ItemModal({ item, onClose, onAdd, isCafeOpen }) {
               ))}
             </div>
           </div>
-          <button disabled={!isCafeOpen} onClick={() => { onAdd(item); onClose(); }} style={{ ...S.btn, background: isCafeOpen ? 'linear-gradient(135deg,#4ecca3,#38b2ac)' : '#334155', color: isCafeOpen ? '#0f172a' : '#64748b', cursor: isCafeOpen ? 'pointer' : 'not-allowed', fontSize: 15 }}>
-            {isCafeOpen ? `🛒 Add to Cart — ₹${item.price}` : '🔴 Cafe Currently Closed'}
-          </button>
+          {isCafeOpen ? (
+            <button onClick={() => { onAdd(item); onClose(); }} style={{ ...S.btn, background: 'linear-gradient(135deg,#4ecca3,#38b2ac)', color: '#0f172a', cursor: 'pointer', fontSize: 15 }}>
+              🛒 Add to Cart — ₹{item.price}
+            </button>
+          ) : (
+            <div style={{ ...S.btn, background: 'rgba(239,68,68,0.1)', color: '#ef4444', textAlign: 'center', cursor: 'not-allowed' }}>
+              🛑 Cafe Currently Closed
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -559,10 +664,18 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
               </div>
 
               {/* Place Order */}
-              <button onClick={handleCheckout} disabled={!isCafeOpen} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: isCafeOpen ? (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : 'linear-gradient(135deg,#25D366,#128C7E)') : '#334155', color: '#fff', fontWeight: 900, fontSize: 15, cursor: isCafeOpen ? 'pointer' : 'not-allowed', boxShadow: isCafeOpen ? (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '0 6px 24px rgba(59,130,246,0.3)' : '0 6px 24px rgba(37,211,102,0.3)') : 'none', fontFamily: 'Outfit, sans-serif' }}>
-                {payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '💳 Pay Now' : '🚀 Place Order via WhatsApp'}
-              </button>
-              <p style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginTop: 8 }}>Order dispatched to both WhatsApp channels ✅</p>
+              {isCafeOpen ? (
+                <>
+                  <button onClick={handleCheckout} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : 'linear-gradient(135deg,#25D366,#128C7E)'), color: '#fff', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '0 6px 24px rgba(59,130,246,0.3)' : '0 6px 24px rgba(37,211,102,0.3)'), fontFamily: 'Outfit, sans-serif' }}>
+                    {payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '💳 Pay Now' : '🚀 Place Order via WhatsApp'}
+                  </button>
+                  <p style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginTop: 8 }}>Order dispatched to both WhatsApp channels ✅</p>
+                </>
+              ) : (
+                <div style={{ textAlign: 'center', padding: '15px', borderRadius: 14, background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontWeight: 800 }}>
+                  🛑 Cafe is Closed
+                </div>
+              )}
             </>
           )}
         </div>
@@ -582,25 +695,50 @@ function OwnerPanel({ isCafeOpen, setIsCafeOpen, dynamicMenu, setDynamicMenu, ne
     { id: 'address', l: '📍 Address' }, { id: 'orders', l: '📦 Orders' },
   ];
 
-  const [menuEditState, setMenuEditState] = useState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true });
+  const [menuEditState, setMenuEditState] = useState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', imageFile: null, description: '', isVeg: true });
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleSaveItem = (e) => {
+  const uploadToImgBB = async (file) => {
+    const formData = new FormData();
+    formData.append('image', file);
+    // Replace with your actual ImgBB API key
+    const API_KEY = '6b110bc5c30fb8ebf0ef7eeb5562828b';
+    const res = await fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, { method: 'POST', body: formData });
+    const data = await res.json();
+    if(data.success) return data.data.url;
+    throw new Error('Upload failed');
+  };
+
+  const handleSaveItem = async (e) => {
     e.preventDefault();
     if (!menuEditState.name || !menuEditState.price) { alert('Name and Price are required!'); return; }
+    
+    setIsUploading(true);
+    let finalImageUrl = menuEditState.image || 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80';
+    
+    try {
+      if (menuEditState.imageFile) {
+        finalImageUrl = await uploadToImgBB(menuEditState.imageFile);
+      }
+    } catch (error) {
+      alert('⚠️ Image upload failed. Using default/previous image.');
+    }
+
     if (menuEditState.id) {
       // Update existing
-      setDynamicMenu(p => p.map(it => it.id === menuEditState.id ? { ...it, name: menuEditState.name, price: parseInt(menuEditState.price), category: menuEditState.category, image: menuEditState.image || it.image, description: menuEditState.description || it.description, isVeg: menuEditState.isVeg } : it));
+      setDynamicMenu(p => p.map(it => it.id === menuEditState.id ? { ...it, name: menuEditState.name, price: parseInt(menuEditState.price), category: menuEditState.category, image: finalImageUrl, description: menuEditState.description || it.description, isVeg: menuEditState.isVeg } : it));
       alert('✅ Item updated!');
     } else {
       // Add new
-      const item = { id: `c_${Date.now()}`, category: menuEditState.category, name: menuEditState.name, price: parseInt(menuEditState.price), isVeg: menuEditState.isVeg, image: menuEditState.image || 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=600&q=80', description: menuEditState.description || 'New item by owner.', ingredients: ['Special Recipe'], calories: 'N/A', prepTime: 'N/A' };
+      const item = { id: `c_${Date.now()}`, category: menuEditState.category, name: menuEditState.name, price: parseInt(menuEditState.price), isVeg: menuEditState.isVeg, image: finalImageUrl, description: menuEditState.description || 'New item by owner.', ingredients: ['Special Recipe'], calories: 'N/A', prepTime: 'N/A' };
       setDynamicMenu(p => [...p, item]);
       alert(`✅ "${item.name}" added to menu!`);
     }
-    setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true });
+    setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', imageFile: null, description: '', isVeg: true });
+    setIsUploading(false);
   };
 
-  const handleEditItem = (it) => setMenuEditState({ id: it.id, name: it.name, price: it.price, category: it.category, image: it.image, description: it.description, isVeg: it.isVeg });
+  const handleEditItem = (it) => setMenuEditState({ id: it.id, name: it.name, price: it.price, category: it.category, image: it.image, imageFile: null, description: it.description, isVeg: it.isVeg });
   const handleDeleteItem = (id) => { if(window.confirm('Are you sure you want to delete this item?')) setDynamicMenu(p => p.filter(it => it.id !== id)); };
 
   const handleAddBranch = (e) => {
@@ -680,14 +818,21 @@ function OwnerPanel({ isCafeOpen, setIsCafeOpen, dynamicMenu, setDynamicMenu, ne
                   {ALL_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
                 </select>
               </div>
-              <div><label style={S.label}>Image URL (Optional)</label><input value={menuEditState.image} onChange={e => setMenuEditState(p => ({ ...p, image: e.target.value }))} placeholder="https://..." style={S.input} /></div>
+              <div>
+                <label style={S.label}>Item Image (Upload)</label>
+                <input type="file" accept="image/*" capture="environment" onChange={e => setMenuEditState(p => ({ ...p, imageFile: e.target.files[0] }))} style={{ ...S.input, background: 'rgba(255,255,255,0.02)', padding: '8px' }} />
+                {menuEditState.image && !menuEditState.imageFile && <p style={{ fontSize: 11, color: '#4ecca3', marginTop: 6 }}>Current: <a href={menuEditState.image} target="_blank" rel="noreferrer" style={{ color: '#3b82f6' }}>View Image</a></p>}
+                {menuEditState.imageFile && <p style={{ fontSize: 11, color: '#f59e0b', marginTop: 6 }}>Ready to upload: {menuEditState.imageFile.name}</p>}
+              </div>
               <div><label style={S.label}>Description (Optional)</label><input value={menuEditState.description} onChange={e => setMenuEditState(p => ({ ...p, description: e.target.value }))} placeholder="Short description..." style={S.input} /></div>
               <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: '#e8e8e8', cursor: 'pointer' }}>
                 <input type="checkbox" checked={menuEditState.isVeg} onChange={e => setMenuEditState(p => ({ ...p, isVeg: e.target.checked }))} style={{ accentColor: '#4ecca3' }} /> Veg Item
               </label>
               <div style={{ display: 'flex', gap: 10 }}>
-                <button type="submit" style={{ ...S.btn, flex: 1 }}>{menuEditState.id ? '💾 Update Item' : '✅ Add Item'}</button>
-                {menuEditState.id && <button type="button" onClick={() => setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', description: '', isVeg: true })} style={{ ...S.btn, background: '#334155', color: '#e2e8f0', flex: 1 }}>Cancel Edit</button>}
+                <button type="submit" disabled={isUploading} style={{ ...S.btn, flex: 1, background: isUploading ? '#64748b' : 'linear-gradient(135deg,#4ecca3,#38b2ac)' }}>
+                  {isUploading ? '⏳ Uploading...' : (menuEditState.id ? '💾 Update Item' : '✅ Add Item')}
+                </button>
+                {menuEditState.id && <button type="button" disabled={isUploading} onClick={() => setMenuEditState({ id: '', name: '', price: '', category: ALL_CATEGORIES[0], image: '', imageFile: null, description: '', isVeg: true })} style={{ ...S.btn, background: '#334155', color: '#e2e8f0', flex: 1 }}>Cancel Edit</button>}
               </div>
             </form>
             <p style={{ fontSize: 12, color: '#64748b', marginBottom: 10 }}>Existing Menu Items:</p>
