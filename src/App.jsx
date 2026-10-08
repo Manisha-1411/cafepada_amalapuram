@@ -287,6 +287,10 @@ export default function App() {
       alert('Delivery is unavailable for distances exceeding 7 Kms. Please contact the cafe directly for special arrangements.');
       return;
     }
+    if (/kkd|kakinada|rajahmundry|yanam|ravulapalem/i.test(custAddr)) {
+      alert('We only deliver within Amalapuram (max 7 Kms radius). Delivery to Kakinada/other cities is unavailable.');
+      return;
+    }
     const payLabel = payMode === 'COD' ? '💵 Cash on Delivery (COD)' : '📱 Online Payment (PhonePe/GPay)';
     let msg = `🐼 *Cafe Panda Official Order!*\n\n`;
     msg += `👤 *Name:* ${custName}\n📞 *Phone:* ${custPhone}\n📍 *Address:* ${custAddr}\n🚗 *Distance:* ${distance} Kms\n💳 *Payment:* ${payLabel}\n\n`;
@@ -572,9 +576,18 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
   const [paymentStatus, setPaymentStatus] = useState('PENDING');
   const sub = cartSubtotal();
   const meetsMin = sub >= MIN_ORDER;
+  const isBlacklisted = /kkd|kakinada|rajahmundry|yanam|ravulapalem/i.test(custAddr);
 
   const handleCheckout = () => {
-    if (cart.length === 0 || sub < MIN_ORDER || !custName.trim() || !custPhone.trim() || !custAddr.trim() || distance > 7) {
+    if (isBlacklisted) {
+      alert("We only deliver within Amalapuram (max 7 Kms radius). Delivery to Kakinada/other cities is unavailable.");
+      return;
+    }
+    if (distance > 7) {
+      alert("Delivery is unavailable for distances exceeding 7 Kms. Please contact the cafe directly for special arrangements.");
+      return;
+    }
+    if (cart.length === 0 || sub < MIN_ORDER || !custName.trim() || !custPhone.trim() || !custAddr.trim()) {
       onPlaceOrder(); // will trigger validations in parent
       return;
     }
@@ -665,12 +678,22 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
 
               {/* Place Order */}
               {isCafeOpen ? (
-                <>
-                  <button onClick={handleCheckout} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : 'linear-gradient(135deg,#25D366,#128C7E)'), color: '#fff', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '0 6px 24px rgba(59,130,246,0.3)' : '0 6px 24px rgba(37,211,102,0.3)'), fontFamily: 'Outfit, sans-serif' }}>
-                    {payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '💳 Pay Now' : '🚀 Place Order via WhatsApp'}
-                  </button>
-                  <p style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginTop: 8 }}>Order dispatched to both WhatsApp channels ✅</p>
-                </>
+                isBlacklisted ? (
+                  <div style={{ textAlign: 'center', padding: '15px', borderRadius: 14, background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontWeight: 800 }}>
+                    🛑 Delivery to this city is unavailable. We only deliver within Amalapuram!
+                  </div>
+                ) : distance > 7 ? (
+                  <div style={{ textAlign: 'center', padding: '15px', borderRadius: 14, background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontWeight: 800 }}>
+                    🛑 Delivery is unavailable for distances &gt; 7 Kms!
+                  </div>
+                ) : (
+                  <>
+                    <button onClick={handleCheckout} style={{ width: '100%', padding: '15px', borderRadius: 14, border: 'none', background: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? 'linear-gradient(135deg,#3b82f6,#2563eb)' : 'linear-gradient(135deg,#25D366,#128C7E)'), color: '#fff', fontWeight: 900, fontSize: 15, cursor: 'pointer', boxShadow: (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '0 6px 24px rgba(59,130,246,0.3)' : '0 6px 24px rgba(37,211,102,0.3)'), fontFamily: 'Outfit, sans-serif' }}>
+                      {payMode === 'ONLINE' && paymentStatus !== 'SUCCESS' ? '💳 Pay Now' : '🚀 Place Order via WhatsApp'}
+                    </button>
+                    <p style={{ textAlign: 'center', fontSize: 11, color: '#475569', marginTop: 8 }}>Order dispatched to both WhatsApp channels ✅</p>
+                  </>
+                )
               ) : (
                 <div style={{ textAlign: 'center', padding: '15px', borderRadius: 14, background: 'rgba(239,68,68,0.1)', color: '#ef4444', fontWeight: 800 }}>
                   🛑 Cafe is Closed
@@ -820,7 +843,7 @@ function OwnerPanel({ isCafeOpen, setIsCafeOpen, dynamicMenu, setDynamicMenu, ne
               </div>
               <div>
                 <label style={S.label}>Item Image (Upload)</label>
-                <input type="file" accept="image/*" capture="environment" onChange={e => setMenuEditState(p => ({ ...p, imageFile: e.target.files[0] }))} style={{ ...S.input, background: 'rgba(255,255,255,0.02)', padding: '8px' }} />
+                <input type="file" accept="image/*" onChange={e => setMenuEditState(p => ({ ...p, imageFile: e.target.files[0] }))} style={{ ...S.input, background: 'rgba(255,255,255,0.02)', padding: '8px' }} />
                 {menuEditState.image && !menuEditState.imageFile && <p style={{ fontSize: 11, color: '#4ecca3', marginTop: 6 }}>Current: <a href={menuEditState.image} target="_blank" rel="noreferrer" style={{ color: '#3b82f6' }}>View Image</a></p>}
                 {menuEditState.imageFile && <p style={{ fontSize: 11, color: '#f59e0b', marginTop: 6 }}>Ready to upload: {menuEditState.imageFile.name}</p>}
               </div>
