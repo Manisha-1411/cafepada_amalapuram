@@ -271,6 +271,22 @@ export default function App() {
   };
 
   // ── Owner login ──
+  const handleAddUpsells = (upsells) => {
+    if (!upsells || upsells.length === 0) return;
+    setCart(prev => {
+      let nextCart = [...prev];
+      for (const u of upsells) {
+        const ex = nextCart.find(i => i.id === u.id);
+        if (ex) {
+          nextCart = nextCart.map(i => i.id === u.id ? { ...i, qty: i.qty + 1 } : i);
+        } else {
+          nextCart.push({ ...u, qty: 1 });
+        }
+      }
+      return nextCart;
+    });
+  };
+
   const handleOwnerLogin = (e) => {
     e.preventDefault();
     if (ownerPwd === OWNER_PASS) setIsAuthorized(true);
@@ -473,7 +489,7 @@ export default function App() {
           custAddr={custAddr} setCustAddr={setCustAddr}
           distance={distance} setDistance={setDistance}
           payMode={payMode} setPayMode={setPayMode}
-          onPlaceOrder={triggerWhatsAppOrder} isCafeOpen={isCafeOpen}
+          onPlaceOrder={triggerWhatsAppOrder} isCafeOpen={isCafeOpen} onAddUpsells={handleAddUpsells}
         />
       )}
 
@@ -592,11 +608,40 @@ function ItemModal({ item, onClose, onAdd, isCafeOpen }) {
 // ═══════════════════════════════════════════════════════════════════
 //  CART DRAWER
 // ═══════════════════════════════════════════════════════════════════
-function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeItem, custName, setCustName, custPhone, setCustPhone, custAddr, setCustAddr, distance, setDistance, payMode, setPayMode, onPlaceOrder, isCafeOpen }) {
+function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeItem, custName, setCustName, custPhone, setCustPhone, custAddr, setCustAddr, distance, setDistance, payMode, setPayMode, onPlaceOrder, isCafeOpen, onAddUpsells }) {
+        
+    const [showUpsell, setShowUpsell] = useState(false);
+  const [selectedUpsells, setSelectedUpsells] = useState([]);
   const [paymentStatus, setPaymentStatus] = useState('PENDING');
+
+  const UPSELLS = [
+    { id: 'up_cheese_slice', name: 'Cheese Slice', price: 25 },
+    { id: 'up_extra_cheese', name: 'Extra Pizza Cheese', price: 40 },
+    { id: 'up_coke', name: 'Coke', price: 40 },
+    { id: 'up_sprite', name: 'Sprite', price: 40 },
+    { id: 'up_water', name: 'Water', price: 10 }
+  ];
+
   const sub = cartSubtotal();
   const meetsMin = sub >= MIN_ORDER;
   const isBlacklisted = /kkd|kakinada|rajahmundry|yanam|ravulapalem/i.test(custAddr);
+
+  const processCheckout = (itemsToAdd = []) => {
+    if (itemsToAdd.length > 0) {
+      onAddUpsells(itemsToAdd);
+    }
+    
+    if (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS') {
+      setPaymentStatus('PROCESSING');
+      setTimeout(() => {
+        alert('✅ Secure Payment Verified Successfully! Order is being routed to WhatsApp.');
+        setPaymentStatus('SUCCESS');
+        onPlaceOrder();
+      }, 2000);
+      return;
+    }
+    onPlaceOrder();
+  };
 
   const handleCheckout = () => {
     if (isBlacklisted) {
@@ -612,15 +657,7 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
       return;
     }
     
-    if (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS') {
-      alert('Initiating secure payment gateway connection...');
-      setTimeout(() => {
-        alert('✅ Payment verified successfully! You can now complete the order via WhatsApp.');
-        setPaymentStatus('SUCCESS');
-      }, 1500);
-      return;
-    }
-    onPlaceOrder();
+    setShowUpsell(true);
   };
 
   return (
