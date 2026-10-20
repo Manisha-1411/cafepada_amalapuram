@@ -1,0 +1,25 @@
+{
+  "name": "Cafe Panda",
+  "short_name": "Cafe Panda",
+  "description": "Order delicious food from Cafe Panda — Burgers, Pizza, Boba, Shakes & more!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a2e",
+  "theme_color": "#4ecca3",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/panda-logo.jpg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/panda-logo.jpg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["food", "shopping"]
+}
