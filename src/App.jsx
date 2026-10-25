@@ -293,7 +293,16 @@ export default function App() {
     else alert('⚠️ తప్పు పాస్‌వర్డ్ భయ్యా!');
   };
 
-  // ── WhatsApp Order ──
+  // ── Helper to format WhatsApp phone strictly (ensure 91 prefix) ──
+  const formatWhatsAppNumber = (phoneStr) => {
+    if (!phoneStr) return '919493189333';
+    const cleanDigits = String(phoneStr).replace(/\D/g, '');
+    if (cleanDigits.length === 10) return `91${cleanDigits}`;
+    if (cleanDigits.length > 10 && cleanDigits.startsWith('91')) return cleanDigits;
+    return cleanDigits ? `91${cleanDigits.slice(-10)}` : '919493189333';
+  };
+
+  // ── WhatsApp Order (Synchronous Macro-task Execution with Pop-up Fallback) ──
   const triggerWhatsAppOrder = () => {
     if (!isCafeOpen) { alert('🐼 Cafe is closed!'); return; }
     if (cart.length === 0) { alert('⚠️ Cart ఖాళీగా ఉంది!'); return; }
@@ -307,6 +316,7 @@ export default function App() {
       alert('We only deliver within Amalapuram (max 7 Kms radius). Delivery to Kakinada/other cities is unavailable.');
       return;
     }
+
     const payLabel = payMode === 'COD' ? '💵 Cash on Delivery (COD)' : '📱 Online Payment (PhonePe/GPay)';
     let msg = `🐼 *Cafe Panda Official Order!*\n\n`;
     msg += `👤 *Name:* ${custName}\n📞 *Phone:* ${custPhone}\n📍 *Address:* ${custAddr}\n🚗 *Distance:* ${distance} Kms\n💳 *Payment:* ${payLabel}\n\n`;
@@ -315,13 +325,31 @@ export default function App() {
     msg += `\n━━━━━━━━━━━━━━━━\n🧾 Subtotal: ₹${cartSubtotal()}\n🚚 Delivery: ₹${DELIVERY_FEE}\n💰 *TOTAL: ₹${cartTotal()}*\n━━━━━━━━━━━━━━━━\n`;
     msg += `⏰ ${new Date().toLocaleString('en-IN')}\n🙏 Thank you! 🐼`;
     const enc = encodeURIComponent(msg);
+
+    // Save order record locally
     const order = { id: Date.now(), items: [...cart], subtotal: cartSubtotal(), total: cartTotal(), payMode: payLabel, stage: 0, date: new Date().toLocaleString('en-IN'), customer: custName };
     const updOrders = [order, ...recentOrders]; setRecentOrders(updOrders); localStorage.setItem('panda_orders', JSON.stringify(updOrders));
     const updLive = [order, ...liveOrders]; setLiveOrders(updLive); localStorage.setItem('panda_live_orders', JSON.stringify(updLive));
     setOrderStage('Order Placed Successfully! ✅');
-    window.open(`https://wa.me/${WA1}?text=${enc}`, '_blank');
-    setTimeout(() => window.open(`https://wa.me/${WA2}?text=${enc}`, '_blank'), 1200);
-    setCart([]); setIsCartOpen(false);
+
+    // Primary target phone check & format (guarantees 91 prefix)
+    const targetPhone = formatWhatsAppNumber(WA1 || '9493189333');
+    const whatsappUrl = `https://api.whatsapp.com/send?phone=${targetPhone}&text=${enc}`;
+
+    // Reset cart before navigating
+    setCart([]);
+    setIsCartOpen(false);
+
+    // 1. SYNCHRONOUS WINDOW.OPEN (Bound directly to user click macro-task)
+    // 2. FALLBACK REDIRECT (If popup blocker prevents window.open, redirect current page directly)
+    try {
+      const newWindow = window.open(whatsappUrl, '_blank');
+      if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+        window.location.href = whatsappUrl;
+      }
+    } catch {
+      window.location.href = whatsappUrl;
+    }
   };
 
   // ══════════ OWNER GATE ══════════
@@ -626,23 +654,6 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
   const meetsMin = sub >= MIN_ORDER;
   const isBlacklisted = /kkd|kakinada|rajahmundry|yanam|ravulapalem/i.test(custAddr);
 
-  const processCheckout = (itemsToAdd = []) => {
-    if (itemsToAdd.length > 0) {
-      onAddUpsells(itemsToAdd);
-    }
-    
-    if (payMode === 'ONLINE' && paymentStatus !== 'SUCCESS') {
-      setPaymentStatus('PROCESSING');
-      setTimeout(() => {
-        alert('✅ Secure Payment Verified Successfully! Order is being routed to WhatsApp.');
-        setPaymentStatus('SUCCESS');
-        onPlaceOrder();
-      }, 2000);
-      return;
-    }
-    onPlaceOrder();
-  };
-
   const handleCheckout = () => {
     if (isBlacklisted) {
       alert("We only deliver within Amalapuram (max 7 Kms radius). Delivery to Kakinada/other cities is unavailable.");
@@ -652,12 +663,8 @@ function CartDrawer({ cart, onClose, cartSubtotal, cartTotal, changeQty, removeI
       alert("Delivery is unavailable for distances exceeding 7 Kms. Please contact the cafe directly for special arrangements.");
       return;
     }
-    if (cart.length === 0 || sub < MIN_ORDER || !custName.trim() || !custPhone.trim() || !custAddr.trim()) {
-      onPlaceOrder(); // will trigger validations in parent
-      return;
-    }
-    
-    setShowUpsell(true);
+    // Directly trigger synchronous order placement to eliminate any async delay before window.open
+    onPlaceOrder();
   };
 
   return (
